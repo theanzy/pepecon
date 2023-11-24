@@ -15,7 +15,15 @@
 	let popupOpen = false;
 	onMount(() => {
 		createPopper(buttonEl, emojiEl, {
-			placement: 'right-start'
+			placement: 'bottom',
+			modifiers: [
+				{
+					name: 'offset',
+					options: {
+						offset: [-120, 8]
+					}
+				}
+			]
 		});
 
 		emojiPicker(emojiEl);

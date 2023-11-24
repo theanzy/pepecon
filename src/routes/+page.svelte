@@ -14,8 +14,10 @@
 	let contentColor = '#ffffff';
 </script>
 
-<div class="w-full mx-auto px-2 py-2 flex flex-row">
-	<div class="min-w-[250px] flex flex-col gap-3 border-r pr-5">
+<div class="w-full mx-auto px-2 py-2 flex flex-col lg:flex-row gap-6">
+	<div
+		class="min-w-[250px] flex flex-col gap-3 border-0 border-b lg:border-b-0 lg:border-r px-3 lg:px-5 pb-10 lg:pb-3"
+	>
 		<h2 class="text-center font-bold text-xl mb-4">Controls</h2>
 		<div class="flex flex-col gap-3">
 			<div>
@@ -27,7 +29,6 @@
 				<RangeInput bind:value={containerBorderRadius} max={128} min={0} unit="px" />
 			</div>
 		</div>
-		<hr class="my-2" />
 		<div class="flex flex-col gap-3">
 			<div>
 				<p class="font-medium mb-2">Value</p>
@@ -78,7 +79,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex-1 px-5">
+	<div class="flex-1 p-3">
 		<h2 class="text-center font-bold text-xl mb-4">Preview</h2>
 		<div
 			class="border-black mx-auto flex justify-center items-center overflow-hidden select-none relative p-1"
