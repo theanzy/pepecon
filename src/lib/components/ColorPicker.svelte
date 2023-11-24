@@ -2,14 +2,14 @@
 	import '@simonwep/pickr/dist/themes/nano.min.css'; // 'monolith' theme
 
 	export let color = '#ff445a';
-	function colorPicker(el: HTMLDivElement, { initialColor }: { initialColor: string }) {
+	function colorPicker(el: HTMLButtonElement, { initialColor }: { initialColor: string }) {
 		const pickr = import('@simonwep/pickr').then(({ default: Pickr }) => {
 			const pickr = Pickr.create({
 				el: el,
 				default: initialColor,
 				theme: 'nano',
 				useAsButton: true,
-				position: 'top-end',
+				position: 'bottom-middle',
 				autoReposition: false,
 				swatches: [
 					'rgba(244, 67, 54, 1)',
@@ -49,16 +49,15 @@
 	}
 </script>
 
-<div class="flex flex-row items-center">
-	<button
-		class="w-7 h-7 rounded-full border border-neutral-300 outline-none transition duration-75 hover:ring-2 focus:ring-2 focus:ring-sky-700 active:ring-sky-700 ring-offset-1"
+<button
+	class="flex flex-row items-center group outline-none"
+	use:colorPicker={{
+		initialColor: color
+	}}
+>
+	<div
+		class="w-7 h-7 rounded-full border border-neutral-300 outline-none transition duration-75 group-hover:ring-2 group-focus-visible:ring-2 group-focus-visible:ring-sky-700 active:ring-sky-700 ring-offset-1"
 		style="background-color: {color};"
-	>
-		<div
-			class="w-full h-full"
-			use:colorPicker={{
-				initialColor: color
-			}}
-		></div>
-	</button>
-</div>
+	></div>
+	<span class="text-sm text-gray-500 ml-2 hover:ring-1 p-1 rounded-sm ring-sky-600">{color}</span>
+</button>

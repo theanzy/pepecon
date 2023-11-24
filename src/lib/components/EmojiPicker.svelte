@@ -1,10 +1,26 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import data from '@emoji-mart/data';
 	import { Picker } from 'emoji-mart';
+	import { createPopper } from '@popperjs/core';
+	import { clickOutside } from '$lib/clickOutside';
+
 	export let value: {
 		native: string | undefined;
 		src: string | undefined;
 	};
+
+	let emojiEl: HTMLDivElement;
+	let buttonEl: HTMLButtonElement;
+	let popupOpen = false;
+	onMount(() => {
+		createPopper(buttonEl, emojiEl, {
+			placement: 'right-start'
+		});
+
+		emojiPicker(emojiEl);
+	});
+
 	let customEmojis = [
 		{
 			id: 'octocat',
@@ -43,4 +59,38 @@
 	}
 </script>
 
-<div use:emojiPicker></div>
+<svelte:window
+	on:keydown={(e) => {
+		if (e.key === 'Escape') {
+			popupOpen = false;
+		}
+	}}
+/>
+<button
+	bind:this={buttonEl}
+	class="border group relative w-8 h-8 rounded-full grid place-items-center outline-none transition duration-75 ring-offset-2 ring-sky-600 {popupOpen
+		? 'ring-1'
+		: ''}"
+	on:click={(e) => {
+		popupOpen = !popupOpen;
+	}}
+>
+	<span class="absolute {popupOpen ? 'opacity-0' : 'group-hover:opacity-0'}"> 😄 </span>
+	<span
+		class="absolute transition-transform duration-75
+			{popupOpen
+			? 'scale-125'
+			: 'opacity-0 group-hover:opacity-100 group-hover:scale-125 group-focus-visible:opacity-100 group-focus-visible:scale-150'}
+		"
+	>
+		🥳
+	</span>
+</button>
+<div
+	bind:this={emojiEl}
+	class="z-10"
+	style="display: {popupOpen ? 'block' : 'none'};"
+	use:clickOutside={() => {
+		popupOpen = false;
+	}}
+></div>
