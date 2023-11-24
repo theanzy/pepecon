@@ -23,8 +23,9 @@
 			ctx: CanvasRenderingContext2D,
 			{ containerSize, containerBorderRadius, containerColor, value, valueSize, valueColor }: Params
 		) {
+			ctx.imageSmoothingEnabled = true;
+			ctx.imageSmoothingQuality = 'high';
 			ctx.fillStyle = containerColor;
-			ctx.imageSmoothingEnabled = false;
 			ctx.clearRect(0, 0, containerSize, containerSize);
 			ctx.beginPath();
 			ctx.roundRect(0, 0, containerSize, containerSize, [
@@ -34,6 +35,17 @@
 			ctx.fill();
 			// content
 			if (value.src) {
+				const image = document.querySelector('#image') as HTMLImageElement;
+				image.style.display = 'block';
+				console.log(image.width, image.height, image);
+				ctx.drawImage(
+					image,
+					containerSize / 2 - image.width / 2,
+					containerSize / 2 - image.height / 2,
+					image.width,
+					image.height
+				);
+				image.style.display = 'none';
 			} else {
 				ctx.font = `${valueSize}px Lato`;
 				ctx.textAlign = 'center';
@@ -42,7 +54,6 @@
 
 				const x = canvas.width / 2;
 				const y = canvas.height / 2;
-				console.log('text', x, y);
 				ctx.fillText(value.native ?? '', x, y + approxFontHeight / 2.7);
 			}
 		}
@@ -69,10 +80,18 @@
 	}
 </script>
 
+<img
+	id="image"
+	style="display: none; max-width: {values.valueSize}px; max-height: {values.valueSize}px; height: auto; width: auto;"
+	crossOrigin="anonymous"
+	src={values.value.src || ''}
+	alt="img"
+/>
+
 <canvas
 	id="canvas"
-	class="hidden"
-	style="width: {values.containerSize}px; height:{values.containerSize}px;"
+	use:drawElement={values}
+	style="display: none; width: {values.containerSize}px; height:{values.containerSize}px;"
 />
 <button
 	on:click={handleClick}

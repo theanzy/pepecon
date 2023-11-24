@@ -4,6 +4,7 @@
 	import EmojiPicker from '$lib/components/EmojiPicker.svelte';
 	import DownloadPNG from '$lib/components/DownloadPNG.svelte';
 	import RangeInput from '$lib/components/RangeInput.svelte';
+	import DownloadPng from '$lib/components/DownloadPNG.svelte';
 	let containerColor = '#211871';
 	let containerBorderRadius = 0;
 	let value = {
@@ -34,7 +35,7 @@
 				<p class="font-medium mb-2">Value</p>
 				<div class="flex flex-row gap-2">
 					<div
-						class="flex items-center overflow-hidden w-20 h-8 border text-lg rounded-sm transition duration-75 outline-none focus-within:ring-2 ring-offset-1 ring-sky-700"
+						class="flex items-center overflow-hidden w-20 h-8 border text-lg rounded-sm transition duration-75 outline-none focus-within:ring-2 ring-offset-1 focus-within:ring-sky-700"
 					>
 						<button
 							class="{value.src ? '' : ' hidden'} p-1 outline-none w-full"
@@ -61,7 +62,7 @@
 				</div>
 			</div>
 			<div>
-				<p class="font-medium mb-2">Font Size</p>
+				<p class="font-medium mb-2">Size</p>
 				<RangeInput bind:value={contentSize} max={200} min={20} unit="px" />
 			</div>
 		</div>
@@ -81,7 +82,7 @@
 			<p class="text-sm mr-3">Download:</p>
 			<hr class="my-2" />
 			<div class="flex justify-start items-center">
-				<DownloadPNG
+				<DownloadPng
 					values={{
 						containerBorderRadius,
 						containerColor,
@@ -90,9 +91,7 @@
 						valueSize: contentSize,
 						valueColor: contentColor
 					}}
-				>
-					PNG
-				</DownloadPNG>
+				/>
 			</div>
 		</div>
 	</div>

@@ -15,5 +15,9 @@
 		{value.native}
 	</span>
 {:else if value.src}
-	<img style="width: {size}px; color: {color};" src={value.src} alt="" />
+	<img
+		style="object-fit: contain; width: auto; height: auto; max-width: {size}px; max-height: {size}px;"
+		src={value.src}
+		alt=""
+	/>
 {/if}
