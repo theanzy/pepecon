@@ -37,7 +37,6 @@
 			if (value.src) {
 				const image = document.querySelector('#image') as HTMLImageElement;
 				image.style.display = 'block';
-				console.log(image.width, image.height, image);
 				ctx.drawImage(
 					image,
 					containerSize / 2 - image.width / 2,
@@ -90,7 +89,6 @@
 
 <canvas
 	id="canvas"
-	use:drawElement={values}
 	style="display: none; width: {values.containerSize}px; height:{values.containerSize}px;"
 />
 <button

@@ -2,7 +2,6 @@
 	import ColorPicker from '$lib/components/ColorPicker.svelte';
 	import Emoji from '$lib/components/Emoji.svelte';
 	import EmojiPicker from '$lib/components/EmojiPicker.svelte';
-	import DownloadPNG from '$lib/components/DownloadPNG.svelte';
 	import RangeInput from '$lib/components/RangeInput.svelte';
 	import DownloadPng from '$lib/components/DownloadPNG.svelte';
 	let containerColor = '#211871';
@@ -13,7 +12,6 @@
 	};
 	let contentSize = 32;
 	let contentColor = '#ffffff';
-	let inputref: HTMLInputElement | undefined;
 </script>
 
 <div class="w-full mx-auto px-2 py-2 flex flex-row">
@@ -35,24 +33,37 @@
 				<p class="font-medium mb-2">Value</p>
 				<div class="flex flex-row gap-2">
 					<div
-						class="flex items-center overflow-hidden w-20 h-8 border text-lg rounded-sm transition duration-75 outline-none focus-within:ring-2 ring-offset-1 focus-within:ring-sky-700"
+						class="flex flex-row items-center overflow-hidden w-20 h-8 border text-lg rounded-sm transition duration-75 outline-none focus-within:ring-2 ring-offset-1 focus-within:ring-sky-700"
 					>
 						<button
-							class="{value.src ? '' : ' hidden'} p-1 outline-none w-full"
+							class="{value.src ? '' : 'hidden'} p-1 outline-none flex-1 group"
 							on:click={() => {
 								value = {
 									native: '',
 									src: undefined
 								};
-								inputref?.focus();
 							}}
 						>
-							<img style="height: 18px;" src={value.src} alt="" />
+							<div class="relative">
+								<img style="height: auto; width:auto; max-height: 20px;" src={value.src} alt="" />
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="hidden group-hover:block w-5 h-5 text-neutral-500 absolute right-5 top-0"
+									viewBox="0 0 24 24"
+									><path
+										fill="none"
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M18 6L6 18M6 6l12 12"
+									/></svg
+								>
+							</div>
 						</button>
 						<input
-							bind:this={inputref}
 							type="text"
-							class="{value.src ? 'hidden' : ' '}border-none outline-none w-full px-2"
+							class="{value.src ? 'hidden' : ' '} border-none outline-none w-full px-2"
 							placeholder=""
 							bind:value={value.native}
 						/>
