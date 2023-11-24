@@ -1,42 +1,44 @@
 <script lang="ts">
 	import data from '@emoji-mart/data';
 	import { Picker } from 'emoji-mart';
-	export let val: string;
+	export let value: {
+		native: string | undefined;
+		src: string | undefined;
+	};
+	let customEmojis = [
+		{
+			id: 'octocat',
+			name: 'Octocat',
+			keywords: ['github'],
+			skins: [{ src: 'https://iconape.com/wp-content/png_logo_vector/github-octocat-logo.png' }],
+			version: 1
+		}
+	];
 
 	function emojiPicker(el: HTMLElement) {
-		const picker = new Picker({
+		new Picker({
 			parent: el,
+			emojiVersion: '14.0',
+			theme: 'light',
 			data: data,
-			categories: [
-				'activity',
-				// 'flags',
-				// 'foods',
-				// 'frequent',
-				'nature',
-				// 'objects',
-				'people'
-				// 'places',
-				// 'symbols',
-			],
 			custom: [
 				{
-					id: 'github',
-					name: 'GitHub',
-					emojis: [
-						{
-							id: 'octocat',
-							name: 'Octocat',
-							keywords: ['github'],
-							skins: [{ src: 'https://www.svgrepo.com/show/370688/social-github-octocat.svg' }]
-						}
-					]
+					emojis: customEmojis
 				}
 			],
 			set: 'native',
 			onEmojiSelect: (v: any) => {
-				val = v.native;
+				const newVal = {
+					native: v.native,
+					src: undefined
+				};
+				if (!newVal.native) {
+					newVal.src = v.src;
+				}
+				value = newVal;
 				console.log(v);
-			}
+			},
+			onAddCustomEmoji: () => {}
 		});
 	}
 </script>
