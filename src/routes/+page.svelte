@@ -15,7 +15,7 @@
 </script>
 
 <div class="w-full mx-auto px-2 py-2 flex flex-row">
-	<div class="min-w-[200px] flex flex-col gap-3">
+	<div class="min-w-[250px] flex flex-col gap-3 border-r pr-5">
 		<h2 class="text-center font-bold text-xl mb-4">Controls</h2>
 		<div class="flex flex-col gap-3">
 			<div>
