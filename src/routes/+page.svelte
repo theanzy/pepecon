@@ -2,6 +2,7 @@
 	import ColorPicker from '$lib/components/ColorPicker.svelte';
 	import Emoji from '$lib/components/Emoji.svelte';
 	import EmojiPicker from '$lib/components/EmojiPicker.svelte';
+	import DownloadPNG from '$lib/components/DownloadPNG.svelte';
 	import RangeInput from '$lib/components/RangeInput.svelte';
 	let containerColor = '#211871';
 	let containerBorderRadius = 0;
@@ -9,8 +10,8 @@
 		native: 'X',
 		src: undefined
 	};
-	let fontsize = 32;
-	let textcolor = '#ffffff';
+	let contentSize = 32;
+	let contentColor = '#ffffff';
 	let inputref: HTMLInputElement | undefined;
 </script>
 
@@ -56,23 +57,42 @@
 						/>
 					</div>
 					<EmojiPicker bind:value />
-					<ColorPicker bind:color={textcolor} />
+					<ColorPicker bind:color={contentColor} />
 				</div>
 			</div>
 			<div>
 				<p class="font-medium mb-2">Font Size</p>
-				<RangeInput bind:value={fontsize} max={200} min={20} unit="px" />
+				<RangeInput bind:value={contentSize} max={200} min={20} unit="px" />
 			</div>
 		</div>
 	</div>
-	<div class="flex-1 px-2">
+	<div class="flex-1 px-5">
 		<h2 class="text-center font-bold text-xl mb-4">Preview</h2>
 		<div
 			class="border-black mx-auto flex justify-center items-center overflow-hidden select-none relative p-1"
 			style="background-color: {containerColor}; width: 256px; height: 256px; border-radius: {containerBorderRadius}px;"
 		>
 			<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-				<Emoji bind:value bind:size={fontsize} bind:color={textcolor} />
+				<Emoji bind:value bind:size={contentSize} bind:color={contentColor} />
+			</div>
+		</div>
+
+		<div class="mt-8">
+			<p class="text-sm mr-3">Download:</p>
+			<hr class="my-2" />
+			<div class="flex justify-start items-center">
+				<DownloadPNG
+					values={{
+						containerBorderRadius,
+						containerColor,
+						containerSize: 256,
+						value,
+						valueSize: contentSize,
+						valueColor: contentColor
+					}}
+				>
+					PNG
+				</DownloadPNG>
 			</div>
 		</div>
 	</div>
