@@ -1,12 +1,32 @@
 <script lang="ts">
+	import { invalidate } from '$app/navigation';
+
 	import ColorPicker from '$lib/components/ColorPicker.svelte';
-	import Emoji from '$lib/components/Emoji.svelte';
 	import EmojiPicker from '$lib/components/EmojiPicker.svelte';
 	import RangeInput from '$lib/components/RangeInput.svelte';
 	import DownloadPng from '$lib/components/DownloadPNG.svelte';
 	import EmojiAdd from '$lib/components/icons/EmojiAdd.svelte';
 	import EmojiAddFilled from '$lib/components/icons/EmojiAddFilled.svelte';
 	import AddEmojiModal from '$lib/components/AddEmojiModal.svelte';
+	import type { CustomEmoji } from '$lib/types';
+	import Emoji from '$lib/components/Emoji.svelte';
+
+	export let data;
+
+	let customEmojis: CustomEmoji[] = [];
+	$: {
+		data.streamed.emojis.then((results) => {
+			customEmojis = results.map((d) => ({
+				id: d.id,
+				name: d.name,
+				skins: [
+					{
+						src: d.src
+					}
+				]
+			}));
+		});
+	}
 
 	let containerColor = '#211871';
 	let containerBorderRadius = 0;
@@ -17,8 +37,13 @@
 	let contentSize = 32;
 	let contentColor = '#ffffff';
 	let openModal = false;
-	$: console.log('openModal', openModal);
 </script>
+
+<svelte:head>
+	<title>pepecon</title>
+	<meta name="robots" content="noindex nofollow" />
+	<html lang="en" />
+</svelte:head>
 
 <div class="w-full mx-auto px-2 py-2 flex flex-col lg:flex-row gap-6">
 	<div
@@ -61,7 +86,13 @@
 						<span class="sr-only">Add Custom Emoji</span>
 					</button>
 					{#if openModal}
-						<AddEmojiModal bind:open={openModal} />
+						<AddEmojiModal
+							bind:open={openModal}
+							on:success={async () => {
+								console.log('emoji added');
+								await invalidate('/');
+							}}
+						/>
 					{/if}
 				</div>
 				<div class="flex flex-row gap-2">
@@ -101,7 +132,7 @@
 							bind:value={value.native}
 						/>
 					</div>
-					<EmojiPicker bind:value />
+					<EmojiPicker bind:value {customEmojis} />
 					<ColorPicker bind:color={contentColor} />
 				</div>
 			</div>

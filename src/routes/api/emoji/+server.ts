@@ -1,7 +1,6 @@
 import { db } from '$lib/db/drizzle/index.js';
 import { emojis } from '$lib/db/drizzle/schema/index.js';
 import { json } from '@sveltejs/kit';
-import { PostgresError } from 'postgres';
 
 export async function POST({ request }) {
 	const body = await request.json();
@@ -46,18 +45,17 @@ export async function POST({ request }) {
 			name: name,
 			src: src
 		});
-	} catch (err) {
-		if (err instanceof PostgresError) {
-			if (err.detail?.includes('already exists')) {
-				return json(
-					{ error: 'id already exists. try a different one' },
-					{
-						status: 400
-					}
-				);
-			}
-			console.log('err', err);
+	} catch (e) {
+		const err = e as { detail: string };
+		if ('detail' in err && err.detail?.includes('already exists')) {
+			return json(
+				{ error: 'id already exists. try a different one' },
+				{
+					status: 400
+				}
+			);
 		}
+		console.log('err', err);
 		return json(
 			{
 				error: 'error insert emoji'

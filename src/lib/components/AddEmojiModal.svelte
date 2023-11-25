@@ -3,12 +3,21 @@
 	import data from '@emoji-mart/data';
 
 	import Modal from './Modal.svelte';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import {
 		PUBLIC_CLOUDINARY_UPLOAD_PRESET,
 		PUBLIC_CLOUDINARY_UPLOAD_URL
 	} from '$env/static/public';
 	import toast from 'svelte-french-toast';
+
+	interface $$Events {
+		success: CustomEvent<void>;
+	}
+
+	type Dispatcher<TEvents extends Record<keyof TEvents, CustomEvent<any>>> = {
+		[Property in keyof TEvents]: TEvents[Property]['detail'];
+	};
+	const dispatch = createEventDispatcher<Dispatcher<$$Events>>();
 
 	export let open = false;
 
@@ -97,6 +106,7 @@
 			name = '';
 			filesEl.value = '';
 			toast.success('Emoji Added');
+			dispatch('success');
 		} catch (e) {
 			console.log('error uploading image', e);
 			if (e instanceof Error) {
@@ -162,10 +172,10 @@
 							{id ? `:${id}:` : ''}
 						</kbd>
 					</div>
-					<div class="w-[128px] h-[128px] rounded-sm border bg-white">
+					<div class="w-[128px] h-[128px] rounded-sm border bg-white grid items-center">
 						{#if files?.[0]}
 							<img
-								class="max-w-[128px] max-h-[128px] h-auto w-auto"
+								class="max-w-full max-h-full object-cover h-auto w-auto"
 								alt=""
 								src={URL.createObjectURL(files[0])}
 							/>

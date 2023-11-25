@@ -3,11 +3,17 @@
 	import { Picker } from 'emoji-mart';
 	import { createPopper } from '@popperjs/core';
 	import { clickOutside } from '$lib/clickOutside';
+	import type { CustomEmoji } from '$lib/types';
 
 	export let value: {
 		native: string | undefined;
 		src: string | undefined;
 	};
+	export let customEmojis: {
+		id: string;
+		name: string;
+		skins: { src: string }[];
+	}[] = [];
 
 	let emojiEl: HTMLDivElement;
 	let buttonEl: HTMLButtonElement;
@@ -27,15 +33,6 @@
 		});
 		emojiPicker(emojiEl);
 	}
-
-	let customEmojis = [
-		{
-			id: 'octocat',
-			name: 'Octocat',
-			keywords: ['github'],
-			skins: [{ src: 'https://iconape.com/wp-content/png_logo_vector/github-octocat-logo.png' }]
-		}
-	];
 
 	function emojiPicker(el: HTMLElement) {
 		new Picker({
@@ -59,8 +56,7 @@
 				}
 				value = newVal;
 				console.log(v);
-			},
-			onAddCustomEmoji: () => {}
+			}
 		});
 	}
 </script>
