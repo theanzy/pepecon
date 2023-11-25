@@ -93,7 +93,7 @@
 />
 <button
 	on:click={handleClick}
-	class="text-neutral-500 text-sm font-bold flex flex-row gap-2 border rounded transition outline-none focus-visible:ring-2 ring-offset-2 focus:visible:ring-sky-600 px-3 py-1 hover:text-black"
+	class="text-neutral-500 text-sm font-bold flex flex-row gap-2 border rounded transition outline-none focus-visible:ring-2 ring-offset-2 focus-visible:ring-sky-600 px-3 py-1 enabled:hover:text-sky-600"
 >
 	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
 		<path fill="currentColor" d="M18 8a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z" /><path

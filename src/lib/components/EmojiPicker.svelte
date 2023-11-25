@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import data from '@emoji-mart/data';
 	import { Picker } from 'emoji-mart';
 	import { createPopper } from '@popperjs/core';
@@ -13,7 +12,8 @@
 	let emojiEl: HTMLDivElement;
 	let buttonEl: HTMLButtonElement;
 	let popupOpen = false;
-	onMount(() => {
+
+	$: if (popupOpen) {
 		createPopper(buttonEl, emojiEl, {
 			placement: 'bottom',
 			modifiers: [
@@ -25,17 +25,15 @@
 				}
 			]
 		});
-
 		emojiPicker(emojiEl);
-	});
+	}
 
 	let customEmojis = [
 		{
 			id: 'octocat',
 			name: 'Octocat',
 			keywords: ['github'],
-			skins: [{ src: 'https://iconape.com/wp-content/png_logo_vector/github-octocat-logo.png' }],
-			version: 1
+			skins: [{ src: 'https://iconape.com/wp-content/png_logo_vector/github-octocat-logo.png' }]
 		}
 	];
 
@@ -94,11 +92,12 @@
 		🥳
 	</span>
 </button>
-<div
-	bind:this={emojiEl}
-	class="z-10"
-	style="display: {popupOpen ? 'block' : 'none'};"
-	use:clickOutside={() => {
-		popupOpen = false;
-	}}
-></div>
+{#if popupOpen}
+	<div
+		bind:this={emojiEl}
+		class="z-10"
+		use:clickOutside={() => {
+			popupOpen = false;
+		}}
+	></div>
+{/if}

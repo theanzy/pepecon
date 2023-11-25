@@ -1,5 +1,6 @@
 <script>
 	import '$lib/global.css';
+	import { Toaster } from 'svelte-french-toast';
 </script>
 
 <nav class="mx-auto max-w-7xl">
@@ -14,3 +15,8 @@
 <main class="mx-auto max-w-7xl px-4">
 	<slot />
 </main>
+<Toaster
+	toastOptions={{
+		position: 'top-right'
+	}}
+/>

@@ -4,6 +4,10 @@
 	import EmojiPicker from '$lib/components/EmojiPicker.svelte';
 	import RangeInput from '$lib/components/RangeInput.svelte';
 	import DownloadPng from '$lib/components/DownloadPNG.svelte';
+	import EmojiAdd from '$lib/components/icons/EmojiAdd.svelte';
+	import EmojiAddFilled from '$lib/components/icons/EmojiAddFilled.svelte';
+	import AddEmojiModal from '$lib/components/AddEmojiModal.svelte';
+
 	let containerColor = '#211871';
 	let containerBorderRadius = 0;
 	let value = {
@@ -12,13 +16,15 @@
 	};
 	let contentSize = 32;
 	let contentColor = '#ffffff';
+	let openModal = false;
+	$: console.log('openModal', openModal);
 </script>
 
 <div class="w-full mx-auto px-2 py-2 flex flex-col lg:flex-row gap-6">
 	<div
-		class="min-w-[250px] flex flex-col gap-3 border-0 border-b lg:border-b-0 lg:border-r px-3 lg:px-5 pb-10 lg:pb-3"
+		class="min-w-[250px] flex flex-col gap-2 lg:gap-3 border-0 border-b lg:border-b-0 lg:border-r px-3 lg:px-5 pb-10 lg:pb-3"
 	>
-		<h2 class="text-center font-bold text-xl mb-4">Controls</h2>
+		<h2 class="text-center font-bold text-xl mb-1 lg:mb-4">Controls</h2>
 		<div class="flex flex-col gap-3">
 			<div>
 				<p class="font-medium mb-2">Shape Color</p>
@@ -31,7 +37,33 @@
 		</div>
 		<div class="flex flex-col gap-3">
 			<div>
-				<p class="font-medium mb-2">Value</p>
+				<div class="flex flex-row mb-2 items-center">
+					<p class="font-medium">Value</p>
+					<button
+						on:click={() => {
+							openModal = true;
+						}}
+						aria-label="Add custom emoji"
+						class="group rounded-full flex flex-row items-center ml-2 transition outline-none focus-visible:ring-1 ring-offset-2 focus-visible:ring-sky-600 text-amber-600"
+					>
+						<div class="relative w-6 h-6">
+							<EmojiAdd class="mt-[2px] w-5 h-5 absolute transition group-hover:opacity-0" />
+							<EmojiAddFilled
+								class="mt-[2px] w-5 h-5 absolute opacity-0 group-hover:opacity-100 transition"
+							/>
+						</div>
+						<div
+							role="tooltip"
+							class="absolute text-white bg-black text-xs px-2 py-1 rounded -translate-y-6 -translate-x-[42%] z-1 pointer-events-none transition-opacity opacity-0 group-hover:opacity-100"
+						>
+							Add Custom Emoji
+						</div>
+						<span class="sr-only">Add Custom Emoji</span>
+					</button>
+					{#if openModal}
+						<AddEmojiModal bind:open={openModal} />
+					{/if}
+				</div>
 				<div class="flex flex-row gap-2">
 					<div
 						class="flex flex-row items-center overflow-hidden w-20 h-8 border text-lg rounded-sm transition duration-75 outline-none focus-within:ring-2 ring-offset-1 focus-within:ring-sky-700"
@@ -79,7 +111,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex-1 p-3">
+	<div class="flex-1">
 		<h2 class="text-center font-bold text-xl mb-4">Preview</h2>
 		<div
 			class="border-black mx-auto flex justify-center items-center overflow-hidden select-none relative p-1"
