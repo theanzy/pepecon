@@ -1,4 +1,6 @@
 <script lang="ts">
+	import toast from 'svelte-french-toast';
+
 	export let values: Params;
 	type Params = {
 		containerSize: number;
@@ -76,6 +78,7 @@
 		link.target = '_blank';
 
 		link.click();
+		toast.success('Downloaded');
 	}
 </script>
 
