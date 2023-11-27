@@ -42,7 +42,6 @@
 <svelte:head>
 	<title>pepecon</title>
 	<meta name="robots" content="noindex nofollow" />
-	<html lang="en" />
 </svelte:head>
 
 <div class="w-full mx-auto px-2 py-2 flex flex-col lg:flex-row gap-6">
