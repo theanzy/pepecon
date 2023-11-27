@@ -130,6 +130,7 @@
 				<input
 					class="px-2 py-1 rounded-sm border outline-none transition focus:ring-1 ring-offset-0 focus:ring-sky-600"
 					id="name"
+					name="name"
 					type="text"
 					placeholder="Name"
 					bind:value={name}
@@ -140,6 +141,7 @@
 						bind:this={filesEl}
 						class="w-0 h-0 max-h-0 max-w-0 peer absolute"
 						id="image"
+						name="image"
 						type="file"
 						accept=".svg,.png,.jpeg,.jpg"
 						bind:files
