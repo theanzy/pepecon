@@ -10,6 +10,7 @@
 	import AddEmojiModal from '$lib/components/AddEmojiModal.svelte';
 	import type { CustomEmoji } from '$lib/types';
 	import Emoji from '$lib/components/Emoji.svelte';
+	import GradientPicker from '$lib/components/GradientPicker.svelte';
 
 	export let data;
 
@@ -28,7 +29,7 @@
 		});
 	}
 
-	let containerColor = '#211871';
+	let containerColor = '';
 	let containerBorderRadius = 0;
 	let value = {
 		native: 'X',
@@ -52,7 +53,7 @@
 		<div class="flex flex-col gap-3">
 			<div>
 				<p class="font-medium mb-2">Shape Color</p>
-				<ColorPicker bind:color={containerColor} />
+				<GradientPicker bind:gradientColor={containerColor} />
 			</div>
 			<div>
 				<p class="font-medium mb-2">Rounded</p>
@@ -145,7 +146,7 @@
 		<h2 class="text-center font-bold text-xl mb-4">Preview</h2>
 		<div
 			class="border-black mx-auto flex justify-center items-center overflow-hidden select-none relative p-1"
-			style="background-color: {containerColor}; width: 256px; height: 256px; border-radius: {containerBorderRadius}px;"
+			style="background: {containerColor}; width: 256px; height: 256px; border-radius: {containerBorderRadius}px;"
 		>
 			<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 				<Emoji bind:value bind:size={contentSize} bind:color={contentColor} />

@@ -1,7 +1,8 @@
 <script lang="ts">
 	import '@simonwep/pickr/dist/themes/nano.min.css'; // 'monolith' theme
 
-	export let color = '#ff445a';
+	export let color = '#ffffff';
+	$: console.log('colorpicker color', color);
 	function colorPicker(el: HTMLButtonElement, { initialColor }: { initialColor: string }) {
 		const pickr = import('@simonwep/pickr').then(({ default: Pickr }) => {
 			const pickr = Pickr.create({
@@ -50,7 +51,7 @@
 </script>
 
 <button
-	class="flex flex-row items-center group outline-none"
+	class="flex flex-row items-center group outline-none w-max"
 	use:colorPicker={{
 		initialColor: color
 	}}

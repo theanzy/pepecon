@@ -3,7 +3,6 @@
 	import { Picker } from 'emoji-mart';
 	import { createPopper } from '@popperjs/core';
 	import { clickOutside } from '$lib/clickOutside';
-	import type { CustomEmoji } from '$lib/types';
 
 	export let value: {
 		native: string | undefined;
@@ -55,7 +54,6 @@
 					newVal.src = v.src;
 				}
 				value = newVal;
-				console.log(v);
 			}
 		});
 	}
