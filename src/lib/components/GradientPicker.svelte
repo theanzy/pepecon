@@ -166,7 +166,15 @@
 					selectedColorId = color.id;
 					draggedColorId = color.id;
 				}}
-			></div>
+			/>
+			{#if color.id === draggedColorId}
+				<span
+					class="absolute w-8 h-10 text-sm translate-x-[-50%] translate-y-[65%] border border-neutral-300 rounded bg-white grid place-items-center"
+					style="left: {color.position}%;"
+				>
+					{color.position}
+				</span>
+			{/if}
 		{/each}
 	</div>
 	<div class="mt-4 mb-2 grid gap-2 grid-cols-1 sm:grid-cols-2">
