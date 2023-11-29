@@ -82,7 +82,7 @@
 							openModal = true;
 						}}
 						aria-label="Add custom emoji"
-						class="group rounded-full flex flex-row items-center ml-2 transition outline-none focus-visible:ring-1 ring-offset-2 focus-visible:ring-sky-600 text-amber-600"
+						class="group rounded-full flex flex-row items-center ml-5 transition outline-none focus-visible:ring-1 ring-offset-2 focus-visible:ring-sky-600 text-amber-600"
 					>
 						<div class="relative w-6 h-6">
 							<EmojiAdd class="mt-[2px] w-5 h-5 absolute transition group-hover:opacity-0" />
