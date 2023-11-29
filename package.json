@@ -27,6 +27,7 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-svelte": "^2.30.0",
+		"html-to-image": "^1.11.11",
 		"install": "^0.13.0",
 		"npm": "^10.2.4",
 		"postcss": "^8.4.31",

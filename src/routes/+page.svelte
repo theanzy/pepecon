@@ -4,13 +4,14 @@
 	import ColorPicker from '$lib/components/ColorPicker.svelte';
 	import EmojiPicker from '$lib/components/EmojiPicker.svelte';
 	import RangeInput from '$lib/components/RangeInput.svelte';
-	import DownloadPng from '$lib/components/DownloadPNG.svelte';
 	import EmojiAdd from '$lib/components/icons/EmojiAdd.svelte';
 	import EmojiAddFilled from '$lib/components/icons/EmojiAddFilled.svelte';
 	import AddEmojiModal from '$lib/components/AddEmojiModal.svelte';
 	import type { CustomEmoji } from '$lib/types';
 	import Emoji from '$lib/components/Emoji.svelte';
 	import GradientPicker from '$lib/components/GradientPicker.svelte';
+	import { downloadPng } from '$lib/download.js';
+	import toast from 'svelte-french-toast';
 
 	export let data;
 
@@ -38,6 +39,20 @@
 	let contentSize = 32;
 	let contentColor = '#ffffff';
 	let openModal = false;
+	let contentEl: HTMLDivElement;
+
+	async function handleDownload(filetype: 'png') {
+		let ok = false;
+		if (filetype === 'png') {
+			const { success } = await downloadPng(contentEl, 'pepecon.png');
+			ok = success;
+		}
+		if (!ok) {
+			toast.error('Fail to download');
+		} else {
+			toast.success('Downloaded');
+		}
+	}
 </script>
 
 <svelte:head>
@@ -142,31 +157,45 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex-1">
+	<div class="flex-1 mb-7">
 		<h2 class="text-center font-bold text-xl mb-4">Preview</h2>
-		<div
-			class="border-black mx-auto flex justify-center items-center overflow-hidden select-none relative p-1"
-			style="background: {containerColor}; width: 256px; height: 256px; border-radius: {containerBorderRadius}px;"
-		>
-			<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-				<Emoji bind:value bind:size={contentSize} bind:color={contentColor} />
+		<div class="flex justify-center p-5 rounded items-center border w-max mx-auto">
+			<div
+				bind:this={contentEl}
+				style="position: relative; background: {containerColor}; width: 256px; height: 256px; border-radius: {containerBorderRadius}px; overflow: hidden;"
+			>
+				<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+					<Emoji bind:value bind:size={contentSize} bind:color={contentColor} />
+				</div>
 			</div>
 		</div>
 
 		<div class="mt-8">
 			<p class="text-sm mr-3">Download:</p>
 			<hr class="my-2" />
-			<div class="flex justify-start items-center">
-				<DownloadPng
-					values={{
-						containerBorderRadius,
-						containerColor,
-						containerSize: 256,
-						value,
-						valueSize: contentSize,
-						valueColor: contentColor
+			<div class="flex flex-row gap-2 justify-start items-center">
+				<button
+					class="text-neutral-500 text-sm font-bold flex flex-row items-center gap-2 border rounded transition outline-none focus-visible:ring-2 ring-offset-2 focus-visible:ring-sky-600 px-3 py-1 enabled:hover:text-sky-600"
+					on:click={() => {
+						handleDownload('png');
 					}}
-				/>
+				>
+					<svg
+						class="w-6 h-6"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+					>
+						<path fill="currentColor" d="M18 8a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z" /><path
+							fill="currentColor"
+							fill-rule="evenodd"
+							d="M11.943 1.25h.114c2.309 0 4.118 0 5.53.19c1.444.194 2.584.6 3.479 1.494c.895.895 1.3 2.035 1.494 3.48c.19 1.411.19 3.22.19 5.529v.088c0 1.909 0 3.471-.104 4.743c-.104 1.28-.317 2.347-.795 3.235c-.21.391-.47.742-.785 1.057c-.895.895-2.035 1.3-3.48 1.494c-1.411.19-3.22.19-5.529.19h-.114c-2.309 0-4.118 0-5.53-.19c-1.444-.194-2.584-.6-3.479-1.494c-.793-.793-1.203-1.78-1.42-3.006c-.215-1.203-.254-2.7-.262-4.558c-.002-.473-.002-.973-.002-1.501v-.058c0-2.309 0-4.118.19-5.53c.194-1.444.6-2.584 1.494-3.479c.895-.895 2.035-1.3 3.48-1.494c1.411-.19 3.22-.19 5.529-.19Zm-5.33 1.676c-1.278.172-2.049.5-2.618 1.069c-.57.57-.897 1.34-1.069 2.619c-.174 1.3-.176 3.008-.176 5.386v.844l1.001-.877a2.3 2.3 0 0 1 3.141.105l4.29 4.29a2 2 0 0 0 2.564.222l.298-.21a3 3 0 0 1 3.732.225l2.83 2.547c.286-.598.455-1.384.545-2.493c.098-1.205.099-2.707.099-4.653c0-2.378-.002-4.086-.176-5.386c-.172-1.279-.5-2.05-1.069-2.62c-.57-.569-1.34-.896-2.619-1.068c-1.3-.174-3.008-.176-5.386-.176s-4.086.002-5.386.176Z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+					<span>PNG</span>
+				</button>
 			</div>
 		</div>
 	</div>
