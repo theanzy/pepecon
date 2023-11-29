@@ -169,12 +169,12 @@
 			></div>
 		{/each}
 	</div>
-	<div class="mt-4 mb-2 grid gap-2 grid-cols-2 lg:grid-cols-3">
+	<div class="mt-4 mb-2 grid gap-2 grid-cols-1 sm:grid-cols-2">
 		{#each colors as color (color.id)}
 			<div
 				role="button"
 				tabindex="0"
-				class="p-1 w-max min-w-[200px] flex flex-row justify-between items-center outline-none focus-within:ring-1 ring-neutral-300 rounded {selectedColorId ===
+				class="p-1 w-max min-w-[150px] flex flex-row justify-between items-center outline-none focus-within:ring-1 ring-neutral-300 rounded {selectedColorId ===
 				color.id
 					? 'ring-1px ring-neutral-300 bg-neutral-100'
 					: 'hover:ring-1 hover:ring-neutral-300'}"

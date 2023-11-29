@@ -60,12 +60,12 @@
 	<meta name="robots" content="noindex nofollow" />
 </svelte:head>
 
-<div class="w-full mx-auto px-2 py-2 flex flex-col lg:flex-row gap-6">
+<div class="flex-1 w-full mx-auto px-2 flex flex-col lg:flex-row gap-6">
 	<div
-		class="min-w-[250px] flex flex-col gap-2 lg:gap-3 border-0 border-b lg:border-b-0 lg:border-r px-3 lg:px-5 pb-10 lg:pb-3"
+		class="min-w-[250px] max-w-full py-2 px-3 lg:pr-5 pb-10 lg:pb-3 flex flex-col gap-2 border-0 border-b lg:border-b-0 lg:border-r"
 	>
-		<h2 class="text-center font-bold text-xl mb-1 lg:mb-4">Controls</h2>
-		<div class="flex flex-col gap-3">
+		<h2 class="text-center font-bold text-xl mb-">Controls</h2>
+		<div class="flex flex-col gap-5">
 			<div>
 				<p class="font-medium mb-2">Shape Color</p>
 				<GradientPicker bind:gradientColor={containerColor} />
@@ -74,8 +74,6 @@
 				<p class="font-medium mb-2">Rounded</p>
 				<RangeInput bind:value={containerBorderRadius} max={128} min={0} unit="px" />
 			</div>
-		</div>
-		<div class="flex flex-col gap-3">
 			<div>
 				<div class="flex flex-row mb-2 items-center">
 					<p class="font-medium">Value</p>
@@ -157,7 +155,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex-1 mb-7">
+	<div class="flex-1 mb-7 py-2">
 		<h2 class="text-center font-bold text-xl mb-4">Preview</h2>
 		<div class="flex justify-center p-5 rounded items-center border w-max mx-auto">
 			<div
