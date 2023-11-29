@@ -20,7 +20,7 @@
 
 	$: if (popupOpen) {
 		createPopper(buttonEl, emojiEl, {
-			placement: 'bottom',
+			placement: 'right-start',
 			modifiers: [
 				{
 					name: 'offset',

@@ -79,11 +79,10 @@
 				body: formData
 			});
 			const body = await res.json();
-			console.log('body', body);
 			if (!body.url) {
 				throw new Error('error upload. url not available.');
 			}
-			const src = body.url;
+			const src = body.secure_url;
 			const emoji = {
 				name,
 				id,
@@ -108,7 +107,7 @@
 			toast.success('Emoji Added');
 			dispatch('success');
 		} catch (e) {
-			console.log('error uploading image', e);
+			console.error('error uploading image', e);
 			if (e instanceof Error) {
 				toast.error(e.message);
 			} else {

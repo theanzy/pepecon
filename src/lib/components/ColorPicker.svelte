@@ -2,7 +2,6 @@
 	import '@simonwep/pickr/dist/themes/nano.min.css'; // 'monolith' theme
 
 	export let color = '#ffffff';
-	$: console.log('colorpicker color', color);
 	function colorPicker(el: HTMLButtonElement, { initialColor }: { initialColor: string }) {
 		const pickr = import('@simonwep/pickr').then(({ default: Pickr }) => {
 			const pickr = Pickr.create({

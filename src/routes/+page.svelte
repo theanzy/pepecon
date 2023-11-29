@@ -102,7 +102,6 @@
 						<AddEmojiModal
 							bind:open={openModal}
 							on:success={async () => {
-								console.log('emoji added');
 								await invalidate('/');
 							}}
 						/>
